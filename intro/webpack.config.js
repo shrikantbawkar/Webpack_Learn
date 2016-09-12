@@ -1,38 +1,34 @@
-var path = require("path");
-var webpack = require("webpack");
+var path = require('path');
+var merge = require('webpack-merge');
+var validate = require('webpack-validator');
 
-var config = {
-	context: path.resolve(__dirname, 'app'), 
-	entry: "./index.js", 
-	output: {
-		path: __dirname + "/app", 
-		filename: "bundle.js"
-	}, 
-	resolve: { 
-		extensions: ['', '.js', '.jsx','.css'], 
-		modulesDirectories: [
-          'node_modules'
-        ]    
-	}, 
-	plugins: [
-		new webpack.DefinePlugin({
-			ON_TEST: process.env.NODE_ENV === "test"
-		})
-	], 
-	module: {
-		loaders: [
-			//{test: /\.js$/, loader: "babel",query: {presets: ['react', 'es2015']}, exclude: /node_modules/},
-			{test: /\.js$/, loader: "ng-annotate!babel?presets[]=es2015", exclude: /node_modules/},
-			{test: /\.html$/, loader: "raw", exclude: /node_modules/},
-			{test: /\.css$/, loader: "style!css!resolve-url", exclude: /node_modules/},
-			{test: /\.scss$/, loader: "style!css!sass-loader!resolve-url", exclude: /node_modules/}
-		]
-	}
+var parts = require('./parts');
+var common = require("./common");
+var config;
+
+// Detect how npm is run and branch based on that
+switch(process.env.npm_lifecycle_event) {
+	case 'build':
+		config = merge(common, {});
+		break;
+	case 'HMRCLI':
+		config = merge(common, {});
+		break;
+	case 'dev':
+		config = merge(common, {});
+		break;
+	default:
+		config = merge(
+			common,
+			parts({
+				// Customize host/port here if needed
+				//host: process.env.HOST,
+				//port: process.env.PORT
+				host: "localhost",
+				port: 8080
+			})
+		);
+
 }
 
-if(process.env.NODE_ENV == "production") {
-	config.output.path = __dirname + "/dist"; 
-	config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-	config.devtool = "source-map";
-}
-module.exports = config;
+module.exports = validate(config);

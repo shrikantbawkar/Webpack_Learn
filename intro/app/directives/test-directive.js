@@ -8,7 +8,7 @@ module.exports = function(ngModule) {
 			controllerAs: "vm", 
 			controller: /*@ngInject*/function($log) {
 				var vm = this; 
-				vm.greeting = "This is a test directive !@@!";
+				vm.greeting = "This is a test directive !!";
 				$log.info("I have some info!!");
 			}
 		}
