@@ -41,7 +41,7 @@ var commonConfig = {
 			{test: /\.html$/, loader: "raw", exclude: /node_modules/},
 			{test: /\.css$/, loader: "style!css!resolve-url", exclude: /node_modules/},
 			{test: /\.scss$/, loader: "style!css!sass-loader!resolve-url", exclude: /node_modules/},
-			{test: /\.(jpe?g|png|gif|svg)$/i, loader: 'url?limit=100000!img?progressive=true&mimetype=image/png', exclude: /node_modules/},
+			{test: /\.(jpe?g|png|gif|svg)$/i, loader: 'url?limit=20000!img?progressive=true&mimetype=image/png', exclude: /node_modules/},
 			{test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/, loader : 'file-loader', exclude: /node_modules/}
 		]
 	}
