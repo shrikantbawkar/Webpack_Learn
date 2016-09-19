@@ -10,7 +10,12 @@ class ConfigRouters {
 		this.urlRouterProvider.otherwise("/app");
 		this.stateProvider.state("app", {
 			url: "/app", 
-			template: require("../common/view/app.html")
+			template: require("../common/view/app.html"),
+			/*@ngInject*/
+			controller: function($scope)
+			{
+				$scope.imgSrc = require("../../assets/image/webpack.png");
+			}
 		}).state("app.scope", {
 			url: "/scope", 
 			template: require("../common/view/scope.html"),
