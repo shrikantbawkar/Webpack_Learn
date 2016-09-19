@@ -10,12 +10,7 @@ class ConfigRouters {
 		this.urlRouterProvider.otherwise("/app");
 		this.stateProvider.state("app", {
 			url: "/app", 
-			template: require("../common/view/app.html"),
-			/*@ngInject*/
-			controller: function($scope)
-			{
-				$scope.imgSrc = require("../../assets/image/webpack.png");
-			}
+			template: require("../common/view/app.html")
 		}).state("app.scope", {
 			url: "/scope", 
 			template: require("../common/view/scope.html"),
@@ -23,7 +18,8 @@ class ConfigRouters {
 			controller: function($scope)
 			{
 				$scope.msg = "Dummy123 test HMR1";
-				document.getElementById("btn").addEventListener("click", function(){ 								
+				$scope.imgSrc = require("../../assets/image/webpack.png");
+				document.getElementById("btn").addEventListener("click", function(){
 					$scope.$apply(function(){
 						$scope.msg = "Changed text!!"; 					
 					}); 
